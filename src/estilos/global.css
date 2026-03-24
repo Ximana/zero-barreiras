@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0f0f1a;
+    color: #f1f1f1;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+@layer components {
+  .botao-primario {
+    @apply bg-primaria-500 hover:bg-primaria-600 text-white font-display font-semibold 
+           px-6 py-3 rounded-2xl transition-all duration-200 
+           active:scale-95 shadow-lg shadow-primaria-500/25;
+  }
+
+  .botao-secundario {
+    @apply border border-white/20 hover:border-primaria-500/50 text-white 
+           font-corpo px-6 py-3 rounded-2xl transition-all duration-200 
+           hover:bg-white/5 active:scale-95;
+  }
+
+  .cartao {
+    @apply bg-white/5 border border-white/10 rounded-3xl backdrop-blur-sm;
+  }
+
+  .chip-gesto {
+    @apply inline-flex items-center gap-2 bg-primaria-500/20 border border-primaria-500/40 
+           text-primaria-400 font-corpo text-sm px-3 py-1.5 rounded-full;
+  }
+
+  .indicador-ativo {
+    @apply w-3 h-3 rounded-full bg-green-400 animate-pulsar shadow-lg shadow-green-400/50;
+  }
+
+  .indicador-inativo {
+    @apply w-3 h-3 rounded-full bg-gray-600;
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 3px;
+}
+
+/* Efeito de fundo animado */
+.fundo-animado {
+  background: radial-gradient(ellipse at 20% 50%, rgba(249, 115, 22, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(249, 115, 22, 0.05) 0%, transparent 50%),
+              #0f0f1a;
+}
+
+/* Linha de separação com gradiente */
+.linha-gradiente {
+  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.5), transparent);
+  height: 1px;
+}
+
+/* Efeito de vidro */
+.vidro {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Câmara com borda animada */
+.camera-ativa {
+  position: relative;
+}
+.camera-ativa::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 24px;
+  background: linear-gradient(45deg, #f97316, transparent, #f97316);
+  animation: rodarBorda 3s linear infinite;
+  z-index: -1;
+}
+@keyframes rodarBorda {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Texto gradiente */
+.texto-gradiente {
+  background: linear-gradient(135deg, #f97316, #fb923c, #fed7aa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animação de onda de voz */
+.onda-voz {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.onda-voz span {
+  display: block;
+  width: 3px;
+  background: #f97316;
+  border-radius: 3px;
+  animation: onda 1.2s ease-in-out infinite;
+}
+.onda-voz span:nth-child(2) { animation-delay: 0.1s; height: 16px; }
+.onda-voz span:nth-child(3) { animation-delay: 0.2s; height: 24px; }
+.onda-voz span:nth-child(4) { animation-delay: 0.3s; height: 32px; }
+.onda-voz span:nth-child(5) { animation-delay: 0.2s; height: 24px; }
+.onda-voz span:nth-child(6) { animation-delay: 0.1s; height: 16px; }
+.onda-voz span:nth-child(1) { height: 10px; }
+.onda-voz span:nth-child(7) { height: 10px; animation-delay: 0.4s; }
+
+@keyframes onda {
+  0%, 100% { transform: scaleY(0.5); opacity: 0.6; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
