@@ -3,8 +3,8 @@ import { GESTOS_MEDICOS } from '../dados/gestos'
 export default function ChipsGestos({ gestos, aoRemover, aoLimpar }) {
   if (!gestos || gestos.length === 0) {
     return (
-      <div className="flex items-center justify-center h-14 rounded-2xl border border-dashed border-white/10">
-        <p className="text-white/30 text-sm font-corpo">
+      <div className="flex items-center justify-center h-14 rounded-2xl border-2 border-dashed border-laranja/20">
+        <p className="text-gray-400 text-sm font-sans">
           Os gestos detectados aparecerão aqui...
         </p>
       </div>
@@ -20,9 +20,8 @@ export default function ChipsGestos({ gestos, aoRemover, aoLimpar }) {
           <button
             key={indice}
             onClick={() => aoRemover && aoRemover(indice)}
-            className="chip-gesto hover:bg-red-500/20 hover:border-red-500/40 
-                       hover:text-red-400 transition-all duration-200 animate-aparecer
-                       cursor-pointer group"
+            className="chip-gesto hover:bg-red-50 hover:border-red-300 hover:text-red-500
+                       transition-all duration-200 animate-aparecer cursor-pointer group"
             title="Clica para remover"
           >
             <span>{info.emoji}</span>
@@ -31,11 +30,10 @@ export default function ChipsGestos({ gestos, aoRemover, aoLimpar }) {
           </button>
         )
       })}
-
       {gestos.length > 0 && (
         <button
           onClick={aoLimpar}
-          className="text-white/30 hover:text-red-400 text-xs font-corpo 
+          className="text-gray-400 hover:text-red-500 text-xs font-sans
                      transition-colors duration-200 px-2 py-1"
         >
           Limpar tudo

@@ -15,17 +15,14 @@ export default function ModoMedico({ aoAdicionarHistorico }) {
     setCarregando(true)
     setErro('')
     setRespostaSimples(null)
-
     try {
       const resultado = await textoParaRespostaSimples(textoMedico)
       setRespostaSimples(resultado)
       aoAdicionarHistorico({ origem: 'medico', texto: textoMedico })
     } catch (err) {
-      if (err.message === 'CHAVE_GEMINI_NAO_CONFIGURADA') {
-        setErro('Chave Gemini não configurada. Recarrega a página.')
-      } else {
-        setErro('Erro ao processar. Tenta novamente.')
-      }
+      setErro(err.message === 'CHAVE_GEMINI_NAO_CONFIGURADA'
+        ? 'Chave Gemini não configurada. Verifica o ficheiro .env.'
+        : 'Erro ao processar. Tenta novamente.')
     } finally {
       setCarregando(false)
     }
@@ -35,20 +32,19 @@ export default function ModoMedico({ aoAdicionarHistorico }) {
     <div className="flex flex-col gap-5">
 
       {/* Instrução */}
-      <div className="flex gap-3 items-start px-5 py-4 cartao">
-        <span className="text-2xl">💡</span>
+      <div className="bg-laranja/6 border border-laranja/15 rounded-2xl px-5 py-4 flex items-start gap-3">
+        <span className="text-2xl flex-shrink-0">💡</span>
         <div>
-          <p className="text-sm font-medium text-white font-corpo">Como usar</p>
-          <p className="mt-1 text-xs text-white/50 font-corpo">
-            Fala ou escreve a tua mensagem. A IA simplifica e sugere gestos
-            para o paciente surdo responder.
+          <p className="text-gray-700 font-sans text-sm font-semibold">Como usar</p>
+          <p className="text-gray-500 font-sans text-xs mt-1">
+            Fala ou escreve a tua mensagem. A IA simplifica e sugere gestos para o paciente responder.
           </p>
         </div>
       </div>
 
-      {/* Entrada do médico */}
+      {/* Entrada */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-sm font-semibold text-white font-display">A tua mensagem</h3>
+        <h3 className="font-display font-semibold text-gray-700 text-sm">A tua mensagem</h3>
         <EntradaVoz
           valor={textoMedico}
           aoMudar={setTextoMedico}
@@ -60,33 +56,27 @@ export default function ModoMedico({ aoAdicionarHistorico }) {
       <button
         onClick={enviarMensagem}
         disabled={!textoMedico.trim() || carregando}
-        className="flex gap-2 justify-center items-center w-full botao-primario disabled:opacity-40 disabled:cursor-not-allowed"
+        className="botao-primario w-full flex items-center justify-center gap-2
+                   disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {carregando ? (
           <>
-            <div className="w-4 h-4 rounded-full border-2 animate-spin border-white/40 border-t-white" />
+            <div className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
             <span>A processar com Gemini...</span>
           </>
         ) : (
-          <>
-            <span>🤖</span>
-            <span>Simplificar para o Paciente</span>
-          </>
+          <><span>🤖</span><span>Simplificar para o Paciente</span></>
         )}
       </button>
 
-      {/* Erro */}
-      {erro && (
-        <p className="text-sm text-center text-red-400 font-corpo">{erro}</p>
-      )}
+      {erro && <p className="text-red-500 text-sm font-sans text-center">{erro}</p>}
 
       {/* Resultado */}
       {respostaSimples && (
         <div className="flex flex-col gap-4 animate-deslizar-cima">
 
-          {/* Mensagem simplificada */}
           <div className="flex flex-col gap-2">
-            <h3 className="text-sm font-semibold text-white font-display">
+            <h3 className="font-display font-semibold text-gray-700 text-sm">
               Mensagem simplificada para o paciente
             </h3>
             <ExibicaoMensagem
@@ -96,15 +86,14 @@ export default function ModoMedico({ aoAdicionarHistorico }) {
             />
           </div>
 
-          {/* Gestos sugeridos para resposta */}
           {respostaSimples.gestos_sugeridos?.length > 0 && (
             <div className="flex flex-col gap-3">
-              <div className="flex gap-2 items-center">
-                <div className="flex-1 linha-gradiente" />
-                <p className="text-xs whitespace-nowrap text-white/40 font-corpo">
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-px bg-laranja/15" />
+                <p className="text-gray-400 text-xs font-sans whitespace-nowrap">
                   O paciente pode responder com
                 </p>
-                <div className="flex-1 linha-gradiente" />
+                <div className="flex-1 h-px bg-laranja/15" />
               </div>
 
               <div className="flex flex-wrap gap-2">
@@ -112,16 +101,14 @@ export default function ModoMedico({ aoAdicionarHistorico }) {
                   const gesto = GESTOS_MEDICOS[chave]
                   if (!gesto) return null
                   return (
-                    <div
-                      key={chave}
-                      className="flex flex-col items-center gap-1 bg-white/5 border 
-                                 border-white/10 rounded-2xl px-4 py-3 min-w-[80px]"
-                    >
+                    <div key={chave}
+                      className="flex flex-col items-center gap-1.5 bg-white border border-laranja/15
+                                 rounded-2xl px-4 py-3 min-w-[80px] shadow-sm">
                       <span className="text-3xl">{gesto.emoji}</span>
-                      <span className="text-xs text-center text-white/70 font-corpo">
+                      <span className="text-gray-700 text-xs font-sans font-semibold text-center">
                         {gesto.nome}
                       </span>
-                      <span className="text-xs leading-tight text-center text-white/30 font-corpo">
+                      <span className="text-gray-400 text-xs font-sans text-center leading-tight">
                         {gesto.descricao}
                       </span>
                     </div>

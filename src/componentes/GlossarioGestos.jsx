@@ -1,18 +1,8 @@
 import { useState } from 'react'
 import { GESTOS_POR_CATEGORIA, CATEGORIAS } from '../dados/gestos'
 
-const COR_CATEGORIA = {
-  corpo: 'border-blue-500/30 bg-blue-500/10 text-blue-300',
-  sintoma: 'border-red-500/30 bg-red-500/10 text-red-300',
-  ssr: 'border-purple-500/30 bg-purple-500/10 text-purple-300',
-  urgencia: 'border-orange-500/30 bg-orange-500/10 text-orange-300',
-  comunicacao: 'border-green-500/30 bg-green-500/10 text-green-300',
-  geral: 'border-gray-500/30 bg-gray-500/10 text-gray-300',
-}
-
 export default function GlossarioGestos({ aoFechar }) {
   const [categoriaActiva, setCategoriaActiva] = useState('todos')
-
   const categorias = ['todos', ...Object.keys(CATEGORIAS)]
 
   const gestosFiltrados = categoriaActiva === 'todos'
@@ -20,39 +10,33 @@ export default function GlossarioGestos({ aoFechar }) {
     : GESTOS_POR_CATEGORIA[categoriaActiva] || []
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl max-h-[85vh] bg-escura-800 border border-white/10 
-                      rounded-3xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4">
+      <div className="w-full max-w-lg max-h-[85vh] bg-white border border-laranja/15
+                      rounded-3xl flex flex-col overflow-hidden shadow-2xl shadow-laranja/15">
 
-        {/* Cabeçalho */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
           <div>
-            <h2 className="font-display font-bold text-white text-xl">Glossário de Gestos</h2>
-            <p className="text-white/40 text-sm font-corpo mt-0.5">
-              Gestos médicos suportados pelo sistema
-            </p>
+            <h2 className="font-display font-bold text-gray-800 text-xl">Glossário de Gestos</h2>
+            <p className="text-gray-400 text-sm font-sans mt-0.5">Gestos médicos suportados</p>
           </div>
           <button
             onClick={aoFechar}
-            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 
-                       flex items-center justify-center text-white/50 hover:text-white
-                       transition-all duration-200"
-          >
-            ✕
-          </button>
+            className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-red-50 hover:text-red-500
+                       flex items-center justify-center text-gray-400
+                       transition-all duration-200 font-sans"
+          >✕</button>
         </div>
 
-        {/* Filtros de categoria */}
-        <div className="flex gap-2 px-6 py-4 overflow-x-auto border-b border-white/5">
+        <div className="flex gap-2 px-6 py-4 overflow-x-auto border-b border-gray-50">
           {categorias.map(cat => (
             <button
               key={cat}
               onClick={() => setCategoriaActiva(cat)}
-              className={`whitespace-nowrap text-xs px-3 py-1.5 rounded-full font-corpo 
-                          transition-all duration-200 border
+              className={`whitespace-nowrap text-xs px-3 py-1.5 rounded-full font-sans font-semibold
+                          transition-all duration-200 border flex-shrink-0
                           ${categoriaActiva === cat
-                            ? 'bg-primaria-500 border-primaria-500 text-white'
-                            : 'border-white/10 text-white/40 hover:text-white/70 hover:border-white/20'
+                            ? 'bg-laranja border-laranja text-white'
+                            : 'border-gray-200 text-gray-500 hover:border-laranja/40 hover:text-laranja'
                           }`}
             >
               {cat === 'todos' ? 'Todos' : CATEGORIAS[cat]?.nome}
@@ -60,29 +44,25 @@ export default function GlossarioGestos({ aoFechar }) {
           ))}
         </div>
 
-        {/* Lista de gestos */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
           <div className="grid grid-cols-2 gap-2">
             {gestosFiltrados.map((gesto) => (
-              <div
-                key={gesto.chave}
-                className={`flex items-center gap-3 p-3 rounded-2xl border 
-                            ${COR_CATEGORIA[gesto.categoria]}`}
-              >
+              <div key={gesto.chave}
+                className="flex items-center gap-3 p-3 rounded-2xl border border-gray-100
+                           bg-gray-50 hover:border-laranja/25 hover:bg-laranja/5 transition-all">
                 <span className="text-2xl">{gesto.emoji}</span>
                 <div className="min-w-0">
-                  <p className="font-corpo font-medium text-sm text-white">{gesto.nome}</p>
-                  <p className="font-corpo text-xs opacity-60 truncate">{gesto.descricao}</p>
+                  <p className="font-sans font-semibold text-sm text-gray-700">{gesto.nome}</p>
+                  <p className="font-sans text-xs text-gray-400 truncate">{gesto.descricao}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Rodapé */}
-        <div className="px-6 py-4 border-t border-white/10">
-          <p className="text-white/30 text-xs font-corpo text-center">
-            {gestosFiltrados.length} gestos disponíveis • Mantém o gesto por 2 segundos para confirmar
+        <div className="px-6 py-4 border-t border-gray-100">
+          <p className="text-gray-400 text-xs font-sans text-center">
+            {gestosFiltrados.length} gestos · Mantém o gesto 2 segundos para confirmar
           </p>
         </div>
       </div>

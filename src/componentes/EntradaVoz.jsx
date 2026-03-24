@@ -7,24 +7,25 @@ export default function EntradaVoz({ valor, aoMudar, placeholder = 'Fala ou escr
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="relative">
-        <textarea
-          value={valor}
-          onChange={(e) => aoMudar(e.target.value)}
-          placeholder={placeholder}
-          rows={3}
-          className="px-4 py-3 w-full text-sm text-white rounded-2xl border transition-colors resize-none bg-white/5 border-white/10 font-corpo focus:outline-none focus:border-primaria-500/50 placeholder:text-white/20"
-        />
-      </div>
+      <textarea
+        value={valor}
+        onChange={(e) => aoMudar(e.target.value)}
+        placeholder={placeholder}
+        rows={3}
+        className="w-full bg-white border-2 border-gray-200 rounded-2xl px-4 py-3
+                   text-gray-700 font-sans text-sm resize-none
+                   focus:outline-none focus:border-laranja
+                   placeholder:text-gray-300 transition-colors shadow-sm"
+      />
 
       {suportado && (
         <button
           onClick={ativo ? parar : iniciar}
-          className={`flex items-center justify-center gap-3 w-full py-3 rounded-2xl 
-                      font-corpo font-medium text-sm transition-all duration-200
+          className={`flex items-center justify-center gap-3 w-full py-3 rounded-2xl
+                      font-sans font-semibold text-sm transition-all duration-200
                       ${ativo
-                        ? 'text-red-400 border bg-red-500/20 border-red-500/40'
-                        : 'border bg-white/5 border-white/10 text-white/70 hover:border-primaria-500/40 hover:text-white'
+                        ? 'bg-red-500 text-white shadow-md shadow-red-500/30'
+                        : 'bg-laranja/8 border-2 border-laranja/25 text-laranja hover:bg-laranja hover:text-white hover:border-laranja'
                       }`}
         >
           {ativo ? (
@@ -44,8 +45,8 @@ export default function EntradaVoz({ valor, aoMudar, placeholder = 'Fala ou escr
       )}
 
       {!suportado && (
-        <p className="text-xs text-center text-white/30 font-corpo">
-          Reconhecimento de voz não suportado neste browser. Usa Chrome para melhor experiência.
+        <p className="text-gray-400 text-xs font-sans text-center">
+          Reconhecimento de voz não suportado. Usa Chrome para melhor experiência.
         </p>
       )}
     </div>
