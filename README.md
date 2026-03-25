@@ -1,15 +1,16 @@
-# 🤚 Zero Barreiras
+# Zero Barreiras
 
 **Comunicação acessível entre pacientes surdos e profissionais de saúde em Angola.**
 
-Projeto desenvolvido para o **Hackathon Zero Barreiras — UNFPA Angola 2026**.  
-Tema: *Acesso à Saúde Sexual e Reprodutiva da Pessoa com Deficiência.*
+Projecto desenvolvido para o **Hackathon Zero Barreiras - UNFPA Angola 2026**.  
+Tema: _Acesso à Saúde Sexual e Reprodutiva da Pessoa com Deficiência._
 
 ---
 
-## 🚀 Como Instalar e Executar
+## Como Instalar e Executar
 
 ### Pré-requisitos
+
 - Node.js 18 ou superior → [nodejs.org](https://nodejs.org)
 - Uma chave gratuita do Google Gemini → [aistudio.google.com](https://aistudio.google.com)
 
@@ -36,54 +37,57 @@ npm run dev
 
 ---
 
-## 🛠️ Stack Tecnológica
+## Stack Tecnológica
 
-| Tecnologia | Uso |
-|---|---|
-| React + Vite | Interface da aplicação |
-| Tailwind CSS | Estilização |
-| MediaPipe Hands | Detecção de gestos via câmara |
-| Google Gemini API | IA para construção de frases |
-| Web Speech API | Voz → texto e texto → voz |
+| Tecnologia        | Uso                           |
+| ----------------- | ----------------------------- |
+| React + Vite      | Interface da aplicação        |
+| Tailwind CSS      | Estilização                   |
+| MediaPipe Hands   | Detecção de gestos via câmara |
+| Google Gemini API | IA para construção de frases  |
+| Web Speech API    | Voz → texto e texto → voz     |
 
 ---
 
-## 📱 Funcionalidades
+## Funcionalidades
 
-### Modo Paciente (🤚)
+### Modo Paciente
+
 - Detecção de gestos em tempo real via câmara
 - Reconhecimento de 25 gestos médicos chave
 - Conversão de gestos em frases naturais com IA (Gemini)
 - Botões de gesto rápido para demo sem câmara
 - Leitura em voz alta da mensagem gerada
 
-### Modo Profissional de Saúde (👨‍⚕️)
+### Modo Profissional de Saúde
+
 - Entrada por voz ou texto
 - Simplificação automática da mensagem com IA
 - Sugestão de gestos para o paciente responder
 - Leitura em voz alta da mensagem simplificada
 
-### Histórico da Consulta (💬)
+### Histórico da Consulta
+
 - Registo completo da sessão
 - Resumo automático da consulta com IA
 - Leitura em voz alta do resumo
 
 ---
 
-## 🖐️ Gestos Suportados
+## Gestos Suportados
 
-| Categoria | Gestos |
-|---|---|
-| Partes do Corpo | Cabeça, Barriga, Peito, Costas |
-| Sintomas | Dor, Febre, Enjoo, Sangramento, Cansaço |
-| Saúde Sexual e Reprodutiva | Gravidez, Menstruação |
-| Urgência | Urgente, Ajuda |
-| Comunicação | Sim, Não, Não entendo |
-| Geral | Médico, Hospital, Consulta, Água, Família, Medicamento |
+| Categoria                  | Gestos                                                 |
+| -------------------------- | ------------------------------------------------------ |
+| Partes do Corpo            | Cabeça, Barriga, Peito, Costas                         |
+| Sintomas                   | Dor, Febre, Enjoo, Sangramento, Cansaço                |
+| Saúde Sexual e Reprodutiva | Gravidez, Menstruação                                  |
+| Urgência                   | Urgente, Ajuda                                         |
+| Comunicação                | Sim, Não, Não entendo                                  |
+| Geral                      | Médico, Hospital, Consulta, Água, Família, Medicamento |
 
 ---
 
-## 🏗️ Estrutura de Diretórios
+## Estrutura de Diretórios
 
 ```
 zero-barreiras/
@@ -126,7 +130,7 @@ zero-barreiras/
 
 ---
 
-## 🔑 Obter a Chave Gemini Gratuita
+## Obter a Chave Gemini Gratuita
 
 1. Acede a [aistudio.google.com](https://aistudio.google.com)
 2. Faz login com a tua conta Google
@@ -136,21 +140,4 @@ zero-barreiras/
 
 ---
 
-## 📦 Construir para Produção
-
-```bash
-npm run build
-```
-
-Os ficheiros de produção ficam na pasta `dist/`.  
-Para fazer deploy gratuito usa [Vercel](https://vercel.com) ou [Netlify](https://netlify.com).
-
----
-
-## 🇦🇴 Parceiros
-
-UNFPA Angola · Ministério da Saúde · Acelera · AfriYAN · LARDEF · YAPAMA
-
----
-
-*Hackathon Zero Barreiras · Luanda · Março 2026*
+_Hackathon Zero Barreiras · Luanda · Março 2026_
