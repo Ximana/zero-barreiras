@@ -43,27 +43,31 @@ export default function ModoPaciente({ aoAdicionarHistorico }) {
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    // ── Layout raiz: coluna em mobile, linha em desktop ──────────────────────
+    <div className="flex flex-col gap-5 lg:flex-row lg:gap-6 lg:items-start">
 
-      {/* Instrução */}
-      <div className="bg-laranja/6 border border-laranja/15 rounded-2xl px-5 py-4 flex items-start gap-3">
-        <span className="text-2xl flex-shrink-0">💡</span>
-        <div>
-          <p className="text-gray-700 font-sans text-sm font-semibold">Como usar</p>
-          <p className="text-gray-500 font-sans text-xs mt-1">
-            Activa a câmara e faz gestos — ou adiciona gestos rapidamente pelos botões abaixo.
-          </p>
+      {/* ══ COLUNA ESQUERDA — Câmara de gestos ════════════════════════════════ */}
+      <div className="flex flex-col gap-4 lg:w-1/2 lg:sticky lg:top-6">
+
+        {/* Instrução */}
+        <div className="flex gap-3 items-start px-5 py-4 rounded-2xl border bg-laranja/6 border-laranja/15">
+          <span className="flex-shrink-0 text-2xl">💡</span>
+          <div>
+            <p className="font-sans text-sm font-semibold text-gray-700">Como usar</p>
+            <p className="mt-1 font-sans text-xs text-gray-500">
+              Activa a câmara e faz gestos — ou adiciona gestos rapidamente pelos botões abaixo.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Câmara */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h3 className="font-display font-semibold text-gray-700 text-sm">Câmara de Gestos</h3>
+        {/* Header da câmara + controlos */}
+        <div className="flex justify-between items-center">
+          <h3 className="text-sm font-semibold text-gray-700 font-display">Câmara de Gestos</h3>
           <div className="flex gap-2">
-            <button onClick={() => setMostrarGlossario(true)}
-              className="text-xs text-gray-400 hover:text-laranja font-sans
-                         transition-colors flex items-center gap-1">
+            <button
+              onClick={() => setMostrarGlossario(true)}
+              className="flex gap-1 items-center font-sans text-xs text-gray-400 transition-colors hover:text-laranja"
+            >
               <span>📖</span> Glossário
             </button>
             <button
@@ -78,61 +82,89 @@ export default function ModoPaciente({ aoAdicionarHistorico }) {
             </button>
           </div>
         </div>
+
+        {/* Câmara */}
         <CameraGestos ativo={cameraActiva} aoDetectarGesto={aoDetectarGesto} />
-      </div>
 
-      {/* Gestos rápidos */}
-      <div className="flex flex-col gap-2">
-        <p className="text-gray-400 text-xs font-sans">Gestos rápidos para demo:</p>
-        <div className="flex flex-wrap gap-2">
-          {['dor', 'ajuda', 'urgente', 'cabeca', 'barriga', 'febre', 'sim', 'nao'].map(chave => {
-            const g = GESTOS_MEDICOS[chave]
-            return (
-              <button key={chave} onClick={() => adicionarGestoManual(chave)}
-                className="chip-gesto hover:bg-laranja hover:text-white hover:border-laranja
-                           transition-all cursor-pointer text-xs">
-                {g.emoji} {g.nome}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Gestos detectados */}
-      <div className="flex flex-col gap-2">
-        <h3 className="font-display font-semibold text-gray-700 text-sm">Gestos Detectados</h3>
-        <ChipsGestos
-          gestos={gestosActuais}
-          aoRemover={(i) => setGestosActuais(prev => prev.filter((_, idx) => idx !== i))}
-          aoLimpar={() => setGestosActuais([])}
-        />
-      </div>
-
-      {/* Botão enviar */}
-      <button
-        onClick={enviarGestos}
-        disabled={gestosActuais.length === 0 || carregando}
-        className="botao-primario w-full flex items-center justify-center gap-2
-                   disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        {carregando ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
-            <span>A processar com Gemini...</span>
-          </>
-        ) : (
-          <><span>🤖</span><span>Converter Gestos em Frase</span></>
-        )}
-      </button>
-
-      {erro && <p className="text-red-500 text-sm font-sans text-center">{erro}</p>}
-
-      {(mensagemGerada || carregando) && (
+        {/* Gestos rápidos */}
         <div className="flex flex-col gap-2">
-          <h3 className="font-display font-semibold text-gray-700 text-sm">Mensagem para o Médico</h3>
-          <ExibicaoMensagem mensagem={mensagemGerada} origem="paciente" carregando={carregando} />
+          <p className="font-sans text-xs text-gray-400">Gestos rápidos para demo:</p>
+          <div className="flex flex-wrap gap-2">
+            {['dor', 'ajuda', 'urgente', 'cabeca', 'barriga', 'febre', 'sim', 'nao'].map(chave => {
+              const g = GESTOS_MEDICOS[chave]
+              return (
+                <button
+                  key={chave}
+                  onClick={() => adicionarGestoManual(chave)}
+                  className="text-xs transition-all cursor-pointer chip-gesto hover:bg-laranja hover:text-white hover:border-laranja"
+                >
+                  {g.emoji} {g.nome}
+                </button>
+              )
+            })}
+          </div>
         </div>
-      )}
+      </div>
+
+      {/* ══ COLUNA DIREITA — Gestos detectados + resultado ════════════════════ */}
+      <div className="flex flex-col gap-4 lg:w-1/2">
+
+        {/* Gestos detectados */}
+        <div className="flex flex-col gap-2">
+          <h3 className="text-sm font-semibold text-gray-700 font-display">Gestos Detectados</h3>
+          <ChipsGestos
+            gestos={gestosActuais}
+            aoRemover={(i) => setGestosActuais(prev => prev.filter((_, idx) => idx !== i))}
+            aoLimpar={() => setGestosActuais([])}
+          />
+        </div>
+
+        {/* Botão enviar */}
+        <button
+          onClick={enviarGestos}
+          disabled={gestosActuais.length === 0 || carregando}
+          className="flex gap-2 justify-center items-center w-full botao-primario disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {carregando ? (
+            <>
+              <div className="w-4 h-4 rounded-full border-2 animate-spin border-white/50 border-t-white" />
+              <span>A processar com Gemini...</span>
+            </>
+          ) : (
+            <><span>🤖</span><span>Converter Gestos em Frase</span></>
+          )}
+        </button>
+
+        {erro && (
+          <p className="px-4 py-3 font-sans text-sm text-center text-red-500 bg-red-50 rounded-xl border border-red-200">
+            {erro}
+          </p>
+        )}
+
+        {/* Mensagem gerada para o médico */}
+        {(mensagemGerada || carregando) && (
+          <div className="flex flex-col gap-2">
+            <h3 className="text-sm font-semibold text-gray-700 font-display">
+              Mensagem para o Médico
+            </h3>
+            <ExibicaoMensagem
+              mensagem={mensagemGerada}
+              origem="paciente"
+              carregando={carregando}
+            />
+          </div>
+        )}
+
+        {/* Estado vazio em desktop — antes de qualquer gesto */}
+        {!carregando && !mensagemGerada && gestosActuais.length === 0 && (
+          <div className="hidden flex-col gap-3 justify-center items-center h-48 rounded-2xl border-2 border-dashed lg:flex border-laranja/20 bg-laranja/3">
+            <span className="text-4xl opacity-30 animate-flutuar">🤚</span>
+            <p className="px-6 font-sans text-xs text-center text-gray-300">
+              Os gestos detectados e a mensagem gerada aparecerão aqui
+            </p>
+          </div>
+        )}
+      </div>
 
       {mostrarGlossario && <GlossarioGestos aoFechar={() => setMostrarGlossario(false)} />}
     </div>

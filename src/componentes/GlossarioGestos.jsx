@@ -10,24 +10,22 @@ export default function GlossarioGestos({ aoFechar }) {
     : GESTOS_POR_CATEGORIA[categoriaActiva] || []
 
   return (
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4">
+    <div className="flex fixed inset-0 z-50 justify-center items-end p-4 backdrop-blur-sm bg-black/30 sm:items-center">
       <div className="w-full max-w-lg max-h-[85vh] bg-white border border-laranja/15
                       rounded-3xl flex flex-col overflow-hidden shadow-2xl shadow-laranja/15">
 
-        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100">
           <div>
-            <h2 className="font-display font-bold text-gray-800 text-xl">Glossário de Gestos</h2>
+            <h2 className="text-xl font-bold text-gray-800 font-display">Glossário de Gestos</h2>
             <p className="text-gray-400 text-sm font-sans mt-0.5">Gestos médicos suportados</p>
           </div>
           <button
             onClick={aoFechar}
-            className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-red-50 hover:text-red-500
-                       flex items-center justify-center text-gray-400
-                       transition-all duration-200 font-sans"
+            className="flex justify-center items-center w-9 h-9 font-sans text-gray-400 bg-gray-100 rounded-xl transition-all duration-200 hover:bg-red-50 hover:text-red-500"
           >✕</button>
         </div>
 
-        <div className="flex gap-2 px-6 py-4 overflow-x-auto border-b border-gray-50">
+        <div className="flex overflow-x-auto gap-2 px-6 py-4 border-b border-gray-50">
           {categorias.map(cat => (
             <button
               key={cat}
@@ -44,15 +42,14 @@ export default function GlossarioGestos({ aoFechar }) {
           ))}
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="overflow-y-auto flex-1 px-6 py-4">
           <div className="grid grid-cols-2 gap-2">
             {gestosFiltrados.map((gesto) => (
               <div key={gesto.chave}
-                className="flex items-center gap-3 p-3 rounded-2xl border border-gray-100
-                           bg-gray-50 hover:border-laranja/25 hover:bg-laranja/5 transition-all">
+                className="flex gap-3 items-center p-3 bg-gray-50 rounded-2xl border border-gray-100 transition-all hover:border-laranja/25 hover:bg-laranja/5">
                 <span className="text-2xl">{gesto.emoji}</span>
                 <div className="min-w-0">
-                  <p className="font-sans font-semibold text-sm text-gray-700">{gesto.nome}</p>
+                  <p className="font-sans text-sm font-semibold text-gray-700">{gesto.nome}</p>
                   <p className="font-sans text-xs text-gray-400 truncate">{gesto.descricao}</p>
                 </div>
               </div>
@@ -61,7 +58,7 @@ export default function GlossarioGestos({ aoFechar }) {
         </div>
 
         <div className="px-6 py-4 border-t border-gray-100">
-          <p className="text-gray-400 text-xs font-sans text-center">
+          <p className="font-sans text-xs text-center text-gray-400">
             {gestosFiltrados.length} gestos · Mantém o gesto 2 segundos para confirmar
           </p>
         </div>

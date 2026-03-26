@@ -82,60 +82,6 @@ Responde APENAS com a frase do paciente, sem aspas, sem explicações.`
 }
 
 /**
- * Simplifica mensagem do médico e sugere gestos de resposta
- */
-export async function textoParaRespostaSimples(textoMedico) {
-  const genAI = new GoogleGenerativeAI(obterChave())
-  const modelo = genAI.getGenerativeModel({ model: obterModelo() })
-
-  const prompt = `És um assistente médico numa unidade de saúde em Angola.
-O médico falou com um paciente surdo e precisas de fazer duas coisas:
-1. Simplificar a mensagem do médico para linguagem muito simples
-2. Sugerir gestos que o paciente pode usar para responder
-
-MENSAGEM DO MÉDICO: "${textoMedico}"
-
-REGRAS PARA SIMPLIFICAR:
-- Usa frases curtas e directas, máximo 15 palavras
-- Sem termos médicos complexos — substitui por linguagem do dia a dia
-- Fala directamente com o paciente ("Tens dor?", "Onde dói?")
-- Se for uma pergunta, mantém como pergunta simples
-- Usa Português angolano natural
-
-EXEMPLOS DE SIMPLIFICAÇÃO:
-- "O paciente apresenta sintomatologia abdominal?" → "Tens dor na barriga?"
-- "Está a experienciar alguma hemorragia vaginal?" → "Tens sangramento?"
-- "Qual é a intensidade da dor numa escala de 1 a 10?" → "A dor é forte ou fraca?"
-- "Tem histórico de patologias reprodutivas?" → "Já tiveste problemas assim antes?"
-
-GESTOS DISPONÍVEIS PARA SUGERIR (escolhe os mais relevantes para responder à mensagem):
-sim, nao, dor, cabeca, barriga, peito, costas, febre, enjoo, sangue, cansaco, gravida, menstruacao, urgente, ajuda, medico, hospital, consulta, agua, familia, medicamento, nao_entendo
-
-REGRAS PARA SUGERIR GESTOS:
-- Sugere entre 2 a 4 gestos que fazem sentido como resposta à mensagem simplificada
-- Se for pergunta de sim/não → inclui sempre "sim" e "nao"
-- Se for pergunta sobre localização da dor → sugere partes do corpo relevantes
-- Se for pergunta sobre sintomas → sugere os sintomas relevantes
-- Inclui "nao_entendo" quando a mensagem pode ser confusa para o paciente
-
-Responde SOMENTE em JSON válido, sem markdown, sem backticks, neste formato exacto:
-{"mensagem_simples":"texto aqui","gestos_sugeridos":["gesto1","gesto2","gesto3"]}`
-
-  const resultado = await modelo.generateContent(prompt)
-  const texto = resultado.response.text().trim()
-    .replace(/```json/g, '').replace(/```/g, '').trim()
-
-  try {
-    return JSON.parse(texto)
-  } catch {
-    return {
-      mensagem_simples: textoMedico,
-      gestos_sugeridos: ['sim', 'nao', 'nao_entendo']
-    }
-  }
-}
-
-/**
  * Gera resumo estruturado da consulta
  */
 export async function gerarResumoDaConsulta(historico) {
