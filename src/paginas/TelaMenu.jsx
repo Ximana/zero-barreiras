@@ -1,29 +1,21 @@
 import { Stethoscope, BookOpen, ChevronLeft, ArrowRight, HandMetal, Activity, Users, Clock } from 'lucide-react'
-
+import logo from '../assets/logo.jpg'
 const CARDS = [
   {
     id: 'consulta',
-    Icon: Stethoscope,
     titulo: 'Consulta',
-    descricao: 'Comunicação em tempo real entre paciente surdo e profissional de saúde através de gestos e voz.',
+    descricao: 'Comunicação entre paciente surdo e profissional de saúde.',
     cor: '#F46300',
-    features: ['Reconhecimento de gestos', 'Síntese de voz', 'Histórico em tempo real'],
-  },
+     },
   {
     id: 'informacoes',
-    Icon: BookOpen,
     titulo: 'Informações',
-    descricao: 'Guia completo de atendimento a pessoas com deficiência em saúde sexual e reprodutiva.',
+    descricao: 'Guia atendimento a pessoas com deficiência em SSR.',
     cor: '#0EA5E9',
-    features: ['Guias por tipo de deficiência', 'Protocolos de SSR', 'Direitos dos pacientes'],
-  },
+ },
 ]
 
-const METRICAS = [
-  { Icon: Activity, valor: 'Tempo real', label: 'Comunicação' },
-  { Icon: Users, valor: '4+', label: 'Tipos de deficiência' },
-  { Icon: Clock, valor: '24/7', label: 'Disponível' },
-]
+
 
 export default function TelaMenu({ aoConsulta, aoInformacoes, aoVoltar }) {
   const handlers = { consulta: aoConsulta, informacoes: aoInformacoes }
@@ -38,16 +30,12 @@ export default function TelaMenu({ aoConsulta, aoInformacoes, aoVoltar }) {
             <ChevronLeft size={18} />
           </button>
           <div className="flex items-center gap-2.5">
-            <div className="flex justify-center items-center w-9 h-9 rounded-xl shadow-md bg-laranja shadow-laranja/30">
-              <HandMetal size={18} className="text-white" />
-            </div>
+            
             <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-bold font-display text-laranja">Zero</span>
-              <span className="text-lg font-bold text-gray-800 font-display">Barreiras</span>
+              <img src={logo} className="w-20" alt="" />
             </div>
           </div>
         </div>
-        <span className="hidden font-sans text-xs text-gray-400 sm:inline">UNFPA Angola · Hackathon 2026</span>
       </nav>
 
       <div className="px-6 py-8 bg-white border-b border-gray-100 lg:px-12">
@@ -62,7 +50,7 @@ export default function TelaMenu({ aoConsulta, aoInformacoes, aoVoltar }) {
         <div className="flex flex-col gap-8 mx-auto max-w-5xl">
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {CARDS.map(({ id, Icon, titulo, descricao, cor, features }) => (
+            {CARDS.map(({ id, titulo, descricao, cor }) => (
               <button
                 key={id}
                 onClick={handlers[id]}
@@ -72,13 +60,8 @@ export default function TelaMenu({ aoConsulta, aoInformacoes, aoVoltar }) {
                   style={{ background: `linear-gradient(90deg, ${cor}, ${cor}77)` }} />
 
                 <div className="flex justify-between items-start">
-                  <div className="flex justify-center items-center w-16 h-16 rounded-2xl transition-all duration-300 group-hover:scale-110"
-                    style={{ background: `${cor}12`, border: `1.5px solid ${cor}25` }}>
-                    <Icon size={30} style={{ color: cor }} strokeWidth={1.5} />
-                  </div>
-                  <div className="flex justify-center items-center w-9 h-9 text-gray-300 rounded-xl border border-gray-200 transition-all duration-300 group-hover:border-laranja group-hover:text-laranja">
-                    <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-                  </div>
+                  
+                 
                 </div>
 
                 <div>
@@ -88,29 +71,11 @@ export default function TelaMenu({ aoConsulta, aoInformacoes, aoVoltar }) {
                   <p className="font-sans text-sm leading-relaxed text-gray-500">{descricao}</p>
                 </div>
 
-                <ul className="flex flex-col gap-2">
-                  {features.map(f => (
-                    <li key={f} className="flex gap-2 items-center">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: cor }} />
-                      <span className="font-sans text-xs text-gray-400">{f}</span>
-                    </li>
-                  ))}
-                </ul>
+               
               </button>
             ))}
           </div>
 
-          <div className="grid grid-cols-3 px-8 py-6 bg-white rounded-2xl border border-gray-200 divide-x divide-gray-100">
-            {METRICAS.map(({ Icon, valor, label }) => (
-              <div key={label} className="flex flex-col gap-2 items-center px-4">
-                <div className="flex justify-center items-center w-10 h-10 rounded-xl bg-laranja/8">
-                  <Icon size={18} className="text-laranja" />
-                </div>
-                <span className="text-xl font-bold text-gray-900 font-display">{valor}</span>
-                <span className="font-sans text-xs text-center text-gray-400">{label}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </main>
     </div>

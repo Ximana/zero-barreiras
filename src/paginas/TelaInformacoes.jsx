@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logo from '../assets/logo.jpg'
 import {
   ChevronLeft, ChevronDown, BookOpen,
   Eye, Ear, Accessibility, Brain, HeartPulse, LayoutGrid,
@@ -122,7 +123,7 @@ const INFORMACOES = [
 
 const URGENCIA_CONFIG = {
   critico:    { dot: 'bg-red-500',    badge: 'bg-red-50 border-red-200 text-red-600',    Icon: AlertTriangle, rotulo: 'Crítico' },
-  essencial:  { dot: 'bg-orange-500', badge: 'bg-orange-50 border-orange-200 text-orange-600', Icon: Star, rotulo: 'Essencial' },
+  essencial:  { dot: 'bg-laranja', badge: 'bg-laranja/10 border-laranja/30 text-laranja', Icon: Star, rotulo: 'Essencial' },
   importante: { dot: 'bg-blue-500',  badge: 'bg-blue-50 border-blue-200 text-blue-600',  Icon: Info, rotulo: 'Importante' },
 }
 
@@ -144,13 +145,9 @@ export default function TelaInformacoes({ aoVoltar }) {
             <ChevronLeft size={18} />
           </button>
           <div className="flex items-center gap-2.5">
-            <div className="flex justify-center items-center w-9 h-9 rounded-xl shadow-md bg-laranja shadow-laranja/30">
-              <HandMetal size={18} className="text-white" />
-            </div>
+            
             <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-bold font-display text-laranja">Zero</span>
-              <span className="text-lg font-bold text-gray-800 font-display">Barreiras</span>
-            </div>
+             <img src={logo} className="w-20" alt="" /></div>
           </div>
         </div>
         <div className="flex gap-2 items-center">

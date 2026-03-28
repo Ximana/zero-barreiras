@@ -41,11 +41,11 @@ export default function ModoMedico({ aoAdicionarHistorico }) {
       <div className="flex flex-col gap-5 lg:w-5/12 lg:sticky lg:top-6">
 
         {/* Instrução */}
-        <div className="flex gap-3 items-start px-5 py-4 bg-amber-50 rounded-2xl border border-amber-200">
-          <Lightbulb size={18} className="text-amber-500 flex-shrink-0 mt-0.5" />
+        <div className="flex gap-3 items-start px-5 py-4 bg-laranja/10 rounded-2xl border border-laranja/30">
+          <Lightbulb size={18} className="text-laranja flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-sans text-sm font-semibold text-amber-800">Como usar</p>
-            <p className="mt-1 font-sans text-xs text-amber-700">
+            <p className="font-sans text-sm font-semibold text-laranja-escuro">Como usar</p>
+            <p className="mt-1 font-sans text-xs text-laranja">
               Escreve ou dita a mensagem. Se a frase existir no banco de dados, o vídeo
               correspondente é reproduzido directamente. Caso contrário, os gestos individuais
               são seleccionados e reproduzidos em sequência.

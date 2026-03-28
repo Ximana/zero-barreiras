@@ -5,11 +5,11 @@ export default {
     extend: {
       colors: {
         laranja: {
-          DEFAULT: '#F46300',
-          escuro: '#D45500',
-          claro: '#FF8C38',
-          palido: '#FFF0E6',
-          suave: '#FFF8F3',
+          DEFAULT: '#58af51',
+          escuro: '#3d8a37',
+          claro: '#7bc975',
+          palido: '#edf7ec',
+          suave: '#f4fbf3',
         },
       },
       fontFamily: {
@@ -19,4 +19,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

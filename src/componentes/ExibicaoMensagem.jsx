@@ -8,7 +8,7 @@ export default function ExibicaoMensagem({ mensagem, origem, carregando }) {
     <div className={`flex flex-col gap-2 animate-deslizar-cima ${ePaciente ? 'items-start' : 'items-end'}`}>
       <div className="flex items-center gap-2 px-1">
         <span className="text-xs text-gray-400 font-sans">
-          {ePaciente ? '🤚 Paciente' : '👨‍⚕️ Profissional de Saúde'}
+          {ePaciente ? 'Paciente' : 'Profissional de Saúde'}
         </span>
       </div>
 
